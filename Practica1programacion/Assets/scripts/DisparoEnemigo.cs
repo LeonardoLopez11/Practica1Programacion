@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DisparoEnemigo : MonoBehaviour
 {
+    public int daño = 10;
     public GameObject balaP; 
     public Transform puntoDisparo; 
     public float velocidadI = 5;
@@ -23,7 +24,7 @@ public class DisparoEnemigo : MonoBehaviour
 
         if (tiempoTranscurrido >= cadencia)
         {
-            // Disparar una bala
+            
             Disparar();
             tiempoTranscurrido = 0f;
             cadencia -= aumentoVelocidad;
@@ -36,5 +37,20 @@ public class DisparoEnemigo : MonoBehaviour
         GameObject bala = Instantiate(balaP, puntoDisparo.position, puntoDisparo.rotation);
         Rigidbody rb = bala.GetComponent<Rigidbody>();
         rb.velocity = transform.forward * velocidadI;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Jugador")) 
+        {
+            
+            player player = other.GetComponent<player>(); 
+            if (player != null)
+            {
+                player.RecibirDaño(daño);
+            }
+
+            
+            
+        }
     }
 }
