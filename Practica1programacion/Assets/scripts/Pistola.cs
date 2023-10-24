@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class Pistola : MonoBehaviour
 {
+    public Municion balas;
+
     public int daño = 10;
     public float cadenciaDeDisparo = 0.5f;
-    public int munición = 30;
+    public int municion = 30;
     public Transform puntoDeDisparo; 
     public GameObject bala; 
     private float tiempoSiguienteDisparo = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        balas = new Municion();
+        balas.nombre = "Balas";
+        balas.cantidadI = 5;
+        municion = balas.cantidadI;
     }
 
     // Update is called once per frame
@@ -27,11 +32,15 @@ public class Pistola : MonoBehaviour
     }
     void Disparar()
     {
-        if (munición > 0)
+        if (municion > 0)
         {
             
             Instantiate(bala, puntoDeDisparo.position, puntoDeDisparo.rotation);
-            munición--; 
+            municion--; 
+        }
+        else
+        {
+            
         }
     }
 }
