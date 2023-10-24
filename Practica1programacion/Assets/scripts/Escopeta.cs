@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Escopeta : MonoBehaviour
 {
+    public Municion cartuchosT;
     
     public int daño = 5;
     public float cadenciaDeDisparo = 1.0f;
-    public int munición = 10;
+    public int municion = 10;
     public Transform puntoDeDisparo; 
     public GameObject cartuchos; 
     private float tiempoSiguienteDisparo = 0.0f;
@@ -15,7 +16,10 @@ public class Escopeta : MonoBehaviour
 // Start is called before the first frame update
 void Start()
     {
-        
+        cartuchosT = new Municion();
+        cartuchosT.nombre = "cartuchos";
+        cartuchosT.cantidadI = 6;
+        municion = cartuchosT.cantidadI;
     }
 
     // Update is called once per frame
@@ -29,7 +33,7 @@ void Start()
     }
     void Disparar()
     {
-        if (munición > 0)
+        if (municion > 0)
         {
             for (int i = 0; i < 3; i++) 
             {
@@ -37,7 +41,12 @@ void Start()
                 Quaternion rotaciónAleatoria = Quaternion.Euler(0, Random.Range(-10, 10), 0);
                 Instantiate(cartuchos, puntoDeDisparo.position, puntoDeDisparo.rotation * rotaciónAleatoria);
             }
-            munición--; 
+            municion--; 
+
+        }
+        else
+        {
+            Debug.Log("No tienes balas");
         }
     }
 }
